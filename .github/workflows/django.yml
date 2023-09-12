@@ -20,6 +20,12 @@ jobs:
           
   build-and-coverage:
     runs-on: ubuntu-20.04
+    permissions:
+      checks: write
+      contents: read
+      deployments: write
+      pull-requests: write
+      statuses: write
     strategy:
       max-parallel: 4
       matrix:
