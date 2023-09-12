@@ -11,11 +11,11 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Black
-        uses: microsoft/action-python@0.7.0
+        uses: piotrpawlaczek/python-blacken@release/stable
         with:
-          python_version: 3.9
-          black: true
-          workdir: .
+          path: .
+          sanity-check: safe
+          only-check: yes
           
   build-and-coverage:
     runs-on: ubuntu-20.04
