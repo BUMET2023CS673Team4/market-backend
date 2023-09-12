@@ -10,12 +10,13 @@ jobs:
   linting:
     runs-on: ubuntu-20.04
     steps:
+      - uses: actions/checkout@v3
       - name: Black
-        uses: piotrpawlaczek/python-blacken@release/stable
+        uses: microsoft/action-python@0.7.0
         with:
-          path: .
-          sanity-check: safe
-          only-check: yes
+          python_version: 3.9
+          black: true
+          workdir: .
           
   build-and-coverage:
     runs-on: ubuntu-20.04
