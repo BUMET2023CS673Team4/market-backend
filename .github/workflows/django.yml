@@ -41,7 +41,7 @@ jobs:
         uses: orgoro/coverage@v3.1
         with:
             coverageFile: /tmp/flea_coverage.xml
-            token: ${{ secrets.COVERAGE_TOKEN }}
+            token: ${{ secrets.GITHUB_TOKEN }}
             thresholdAll: 0.6
             thresholdNew: 0.75
             thresholdModified: 0.75
