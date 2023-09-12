@@ -7,24 +7,38 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
-
+  linting:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Black
+        uses: microsoft/action-python@0.7.0
+        with:
+          black: true
+          
+  build-and-coverage:
     runs-on: ubuntu-20.04
     strategy:
       max-parallel: 4
       matrix:
         python-version: [3.9]
-
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v3
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install Dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-    - name: Run Tests
-      run: |
-        bash runtest.sh
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Run Tests
+        run: |
+          bash runtest.sh --cov-report xml:/tmp/flea_coverage.xml
+      - name: Get Coverage
+        uses: orgoro/coverage@v3.1
+        with:
+            coverageFile: /tmp/flea_coverage.xml
+            token: ${{ secrets.COVERAGE_TOKEN }}
+            thresholdAll: 0.6
+            thresholdNew: 0.75
+            thresholdModified: 0.75
