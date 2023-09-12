@@ -1,0 +1,4 @@
+[tool.black]
+check=true
+skip-string-normalization=true
+target-version= ['py39']

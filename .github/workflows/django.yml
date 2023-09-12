@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+  PYTHON_VERSION: 3.9
+  COVERAGE_PATH: /tmp/flea_coverage.xml
+
 jobs:
   linting:
     runs-on: ubuntu-20.04
@@ -13,7 +17,9 @@ jobs:
       - name: Black
         uses: microsoft/action-python@0.7.0
         with:
+          python-version: $PYTHON_VERSION
           black: true
+          workdir: .
           
   build-and-coverage:
     runs-on: ubuntu-20.04
@@ -23,21 +29,21 @@ jobs:
         python-version: [3.9]
     steps:
       - uses: actions/checkout@v3
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Set up Python $PYTHON_VERSION
         uses: actions/setup-python@v3
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: $PYTHON_VERSION
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Run Tests
         run: |
-          bash runtest.sh --cov-report xml:/tmp/flea_coverage.xml
+          bash runtest.sh --cov-report term --cov-report xml:$COVERAGE_PATH --cov
       - name: Get Coverage
         uses: orgoro/coverage@v3.1
         with:
-            coverageFile: /tmp/flea_coverage.xml
+            coverageFile: $COVERAGE_PATH
             token: ${{ secrets.COVERAGE_TOKEN }}
             thresholdAll: 0.6
             thresholdNew: 0.75
