@@ -13,7 +13,7 @@ jobs:
       - name: Black
         uses: microsoft/action-python@0.7.0
         with:
-          python-version: 3.9
+          python_version: 3.9
           black: true
           workdir: .
           
