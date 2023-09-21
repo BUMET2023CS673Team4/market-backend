@@ -1,8 +1,6 @@
-name: Django CI
+name: Django CI Debug
 
 on:
-  push:
-    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
@@ -44,7 +42,6 @@ jobs:
         run: |
           bash runtest.sh --cov-report term --cov-report xml:/tmp/flea_coverage.xml --cov
       - name: Get Coverage
-        if: github.event_name == 'pull_request'
         uses: orgoro/coverage@v3.1
         with:
             coverageFile: /tmp/flea_coverage.xml
