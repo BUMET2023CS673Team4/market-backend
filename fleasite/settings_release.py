@@ -9,5 +9,7 @@ SECRET_KEY = "django-insecure-vb_08&&o(0e9_o&#^ucukz091h6d0o7eiw01$0gsm&&v&kdmd5
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    os.environ['WEBSITE_HOSTNAME'] if 'WEBSITE_HOSTNAME' in os.environ else 'localhost'
+    os.environ['WEBSITE_HOSTNAME']
+    if IS_AZURE and 'WEBSITE_HOSTNAME' in os.environ
+    else 'localhost',
 ]
