@@ -15,6 +15,7 @@ import os
 from pathlib import Path
 
 IS_AZURE = os.environ.get("WEBSITE_PLATFORM_VERSION", None) is not None
+IS_AWS = os.environ.get("AWS_HOSTNAME", None) is not None
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent

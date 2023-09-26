@@ -21,3 +21,6 @@ jobs:
       - name: Building web app
         run: |
           bash scripts/postbuild.sh
+      - name: Restart web service
+        run: |
+          sudo systemctl restart emperor.uwsgi.service

@@ -11,5 +11,7 @@ DEBUG = False
 ALLOWED_HOSTS = [
     os.environ['WEBSITE_HOSTNAME']
     if IS_AZURE and 'WEBSITE_HOSTNAME' in os.environ
+    else os.environ['AWS_HOSTNAME']
+    if IS_AWS and 'AWS_HOSTNAME' in os.environ
     else 'localhost',
 ]
