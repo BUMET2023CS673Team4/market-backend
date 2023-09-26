@@ -14,7 +14,7 @@ import os
 
 from pathlib import Path
 
-IS_AZURE = os.environ.get("WEBSITE_PLATFORM_VERSION", None) is not None
+IS_AZURE = os.environ.get("WEBSITE_HOSTNAME", None) is not None
 IS_AWS = os.environ.get("AWS_HOSTNAME", None) is not None
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -75,7 +75,11 @@ WSGI_APPLICATION = "fleasite.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": "/home/django.sqlite3" if IS_AZURE else BASE_DIR / "db.sqlite3",
+        "NAME": "/home/django.sqlite3"
+        if IS_AZURE
+        else "/var/cs673/django.sqlite3"
+        if IS_AWS
+        else BASE_DIR / "db.sqlite3",
     }
 }
 
