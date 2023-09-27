@@ -18,4 +18,4 @@ ALLOWED_HOSTS = [
 
 # Fix for Azure Web service complaining about CSRF
 if IS_AZURE:
-    CSRF_TRUSTED_ORIGINS = ['https://'+ os.environ['WEBSITE_HOSTNAME']] 
+    CSRF_TRUSTED_ORIGINS = ['https://' + os.environ['WEBSITE_HOSTNAME']]
