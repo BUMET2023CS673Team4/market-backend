@@ -14,11 +14,3 @@ class HelloWorldTest(TestCase):
         self.assertJSONEqual(
             helloworld(self.request).content, {"message": "Hello, world!"}
         )
-
-
-
-
-
-
-
-       
