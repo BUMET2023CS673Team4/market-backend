@@ -41,4 +41,44 @@ class Migration(migrations.Migration):
                 ),
             ],
         ),
+
+        migrations.CreateModel(
+            name='Item',
+            fields=[
+                ('id', models.AutoField(primary_key=True, serialize=False)),
+                ('name', models.CharField(max_length=255)),
+                ('location', models.CharField(max_length=255)),
+                ('description', models.TextField()),
+                ('seller_id', models.CharField(max_length=255)),
+                ('category_id', models.CharField(max_length=255)),
+                ('price', models.FloatField()),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Category',
+            fields=[
+                ('id', models.AutoField(primary_key=True, serialize=False)),
+                ('name', models.CharField(max_length=255)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Cart',
+            fields=[
+                ('id', models.AutoField(primary_key=True, serialize=False)),
+                ('user_id', models.CharField(max_length=255)),
+                ('item_id', models.CharField(max_length=255)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Order',
+            fields=[
+                ('id', models.AutoField(primary_key=True, serialize=False)),
+                ('user_id', models.CharField(max_length=255)),
+                ('item_id', models.CharField(max_length=255)),
+                ('pickup_option', models.CharField(max_length=255)),
+                ('payment', models.CharField(max_length=255)),
+            ],
+        ),
+
+        
     ]

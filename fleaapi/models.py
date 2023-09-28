@@ -18,4 +18,44 @@ class SellerProfile(models.Model):
     # OneToOneField is a one-to-one relationship
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     phone = models.CharField(max_length=255)
-    address = models.CharField(max_length=255)
+
+
+class Category(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=255)
+    
+
+class Item(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=255)
+    location = models.CharField(max_length=255)
+    description = models.TextField()
+    seller_id = models.ForeignKey(SellerProfile, max_length=255)  
+    category_id = models.ForeignKey(Category, blank=True, max_length=255)
+    price = models.FloatField()
+    image = models.CharField(max_length=255)
+    date_added = models.DateTimeField(auto_now_add=True)
+
+
+
+class Cart(models.Model):
+    id = models.AutoField(primary_key=True)
+    user_id = models.ForeignKey(User, max_length=255)
+    item_id = models.ForeignKey(Item, max_length=255)
+
+class Order(models.Model):
+    id = models.AutoField(primary_key=True)
+    user_id = models.ForeignKey(User, max_length=255)
+    item_id = models.ForeignKey(Item, max_length=255)
+    pickup_option = models.CharField(max_length=255)
+    payment = models.CharField(max_length=255)
+
+
+
+
+
+
+
+
+
+

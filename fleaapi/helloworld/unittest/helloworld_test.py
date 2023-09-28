@@ -1,6 +1,7 @@
 from django.test import TestCase
 from unittest.mock import MagicMock
 
+
 from ..helloworld import *
 
 
@@ -13,3 +14,11 @@ class HelloWorldTest(TestCase):
         self.assertJSONEqual(
             helloworld(self.request).content, {"message": "Hello, world!"}
         )
+
+
+
+
+
+
+
+       
