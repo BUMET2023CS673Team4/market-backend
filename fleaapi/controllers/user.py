@@ -15,6 +15,16 @@ from fleaapi.models import User
 
 @require_POST
 def register(request: HttpRequest) -> HttpResponse:
+    """
+    Register a new user.
+    Endpoint: POST /api/register/
+    Post Form Data:
+        name: the name of the user
+        email: the email of the user
+        password: the password of the user
+    :param request: the request object
+    :return: 201 if success, 400 if invalid request, 500 if internal error
+    """
     ALLOWED_HOSTS = ["bu.edu"]
 
     logger = logging.getLogger(__name__)
