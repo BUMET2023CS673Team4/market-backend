@@ -14,10 +14,10 @@ from fleaapi.models import User
 
 
 @require_POST
-def register(request: HttpRequest) -> HttpResponse:
+def signup(request: HttpRequest) -> HttpResponse:
     """
-    Register a new user.
-    Endpoint: POST /api/register/
+    Sign up a new user.
+    Endpoint: POST /api/signup/
     Post Form Data:
         name: the name of the user
         email: the email of the user
@@ -28,33 +28,33 @@ def register(request: HttpRequest) -> HttpResponse:
     ALLOWED_HOSTS = ["bu.edu"]
 
     logger = logging.getLogger(__name__)
-    logger.info("[register] flow started")
+    logger.info("[signup] flow started")
 
     name = request.POST.get("name")
     email = request.POST.get("email")
     password = request.POST.get("password")
 
     if not name or not email or not password:
-        logger.error(f"[register] missing required fields")
+        logger.error(f"[signup] missing required fields")
         return HttpResponseBadRequest()
 
-    logger.info(f"[register] received request for email: {email}")
+    logger.info(f"[signup] received request for email: {email}")
 
     if not any([email.endswith(f"@{host}") for host in ALLOWED_HOSTS]):
-        logger.error(f"[register] email {email} is not allowed")
+        logger.error(f"[signup] email {email} is not allowed")
         return HttpResponseBadRequest()
 
     try:
         user = User.objects.create(name=name, email=email, password=password)
         user.full_clean()
         user.save()
-        logger.info(f"[register] created user: {user}")
+        logger.info(f"[signup] created user: {user}")
         return HttpResponse(status=201)  # Created
     except (ValidationError, IntegrityError) as e:
-        logger.error(f"[register] validate user with email {email} failed: {e}")
+        logger.error(f"[signup] validate user with email {email} failed: {e}")
         return HttpResponseBadRequest()
     except Exception as e:
         logger.error(
-            f"[register] create user with email {email} failed: {repr(e)}"
+            f"[signup] create user with email {email} failed: {repr(e)}"
         )  # using repr() here so we can see the type of the exception
         return HttpResponseServerError()
