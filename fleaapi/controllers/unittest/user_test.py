@@ -92,5 +92,5 @@ class UserControllerTest(TestCase):
     def test_login_with_valid_credentials(self):
         existing_user = User.objects.create(
             name="John Doe",
-            email="jd@bu.edu",
+            email="jd@bu.edu
             password="1234")

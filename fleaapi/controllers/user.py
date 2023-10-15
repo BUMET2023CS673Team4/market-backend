@@ -58,3 +58,37 @@ def signup(request: HttpRequest) -> HttpResponse:
             f"[signup] create user with email {email} failed: {repr(e)}"
         )  # using repr() here so we can see the type of the exception
         return HttpResponseServerError()
+
+from django.contrib.auth import authenticate
+
+def login(request: HttpRequest) -> HttpResponse:
+    """
+    Log in an existing user.
+    Endpoint: POST /api/login/
+    Post Form Data:
+        email: the email of the user
+        password: the password of the user
+    :param request: the request object
+    :return: 200 if success, 400 if invalid request, 401 if unauthorized, 500 if internal error
+    """
+    logger = logging.getLogger(__name__)
+    logger.info("[login] flow started")
+
+    email = request.POST.get("email")
+    password = request.POST.get("password")
+
+    if not email or not password:
+        logger.error(f"[login] missing required fields")
+        return HttpResponseBadRequest()
+
+    # Authenticate the user
+    user = authenticate(request, username=email, password=password)
+
+    if user is not None:
+        # Successful login
+        logger.info(f"[login] user {email} logged in successfully")
+        return HttpResponse(status=200)  # OK
+    else:
+        # Authentication failed
+        logger.error(f"[login] authentication failed for email: {email}")
+        return HttpResponse(status=401)  # Unauthorized
