@@ -88,3 +88,42 @@ class UserControllerTest(TestCase):
                 },
             )
             self.assertEqual(response.status_code, 500)
+
+    def test_login_with_valid_credentials(self):
+        existing_user = User.objects.create(
+            name="John Doe", email="jd@bu.edu", password="1234"
+        )
+        response = self.client.post(
+            "/api/login/",
+            data={
+                "email": "jd@bu.edu",
+                "password": "1234",
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+
+    def test_login_with_invalid_credentials(self):
+        existing_user = User.objects.create(
+            name="John Doe", email="jd@bu.edu", password="1234"
+        )
+        response = self.client.post(
+            "/api/login/",
+            data={
+                "email": "jd@bu.edu",
+                "password": "12345",
+            },
+        )
+        self.assertEqual(response.status_code, 400)
+
+    def test_login_with_invalid2_credentials(self):
+        existing_user = User.objects.create(
+            name="John Doe", email="jd@bu.edu", password="1234"
+        )
+        response = self.client.post(
+            "/api/login/",
+            data={
+                "email": "jd@u.edu",
+                "password": "1234",
+            },
+        )
+        self.assertEqual(response.status_code, 400)

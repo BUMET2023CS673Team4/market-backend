@@ -7,4 +7,5 @@ from .controllers import user
 urlpatterns = [
     path("helloworld/", views.helloworld),
     path("signup/", user.signup),
+    path("login/", user.login),
 ]

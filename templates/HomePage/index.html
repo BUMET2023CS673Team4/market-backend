@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="styleguide.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="home-page">
+      <div class="div">
+        <div class="footer"></div>
+        <div class="overlap">
+          <div class="text-wrapper">Login</div>
+          <header class="header">
+            <input type="text" class="form-input"></input>
+            <div class="dropdown">
+              <botton onclick="homepageDrop()" class="dropbtn"></botton>
+              <div id="home-drop" class="dropdown-content">
+                <b>s</b>
+                <a>Profile</a>
+                <a>Categories</a>
+                <a style="text-align: right;"> > </a>
+                <a></a>
+                <a></a>
+                <a></a>
+                <button class="signout">Sign Out</button>
+              </div>
+            </div>
+            <div class="placeholder-profile"></div>
+            <img class="placeholder-logo" src="img/placeholder-logo.png" />
+          </header>
+        </div>
+        <div class="carousel"></div>
+        <button class="card">
+          <div class="category-header">Electronics</div>
+        </button>
+        <button class="category-header-wrapper">
+          <div class="category-header-2">Storage</div>
+        </button>
+        <button class="product-card">
+          <div class="category-header-3">Furniture</div>
+        </button>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    function homepageDrop() {
+  document.getElementById("home-drop").classList.toggle("show");
+}
+
+// 如果用户在下拉菜单之外点击，则关闭下拉菜单
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+  </script>
+</html>
