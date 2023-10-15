@@ -59,7 +59,9 @@ def signup(request: HttpRequest) -> HttpResponse:
         )  # using repr() here so we can see the type of the exception
         return HttpResponseServerError()
 
+
 from django.contrib.auth import authenticate
+
 
 def login(request: HttpRequest) -> HttpResponse:
     """
@@ -82,7 +84,17 @@ def login(request: HttpRequest) -> HttpResponse:
         return HttpResponseBadRequest()
 
     # Authenticate the user
-    user = authenticate(request, username=email, password=password)
+    try:
+        user = User.objects.get(email=email)
+        if user is None:
+            logger.error(f"[login] user with email {email} does not exist")
+            return HttpResponseBadRequest()
+        if user.password != password:
+            logger.error(f"[login] password for user {email} is incorrect")
+            return HttpResponseBadRequest()
+    except Exception as e:
+        logger.error(f"[login] failed to get user with email {email}: {repr(e)}")
+        return HttpResponseBadRequest()
 
     if user is not None:
         # Successful login

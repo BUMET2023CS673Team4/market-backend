@@ -5,6 +5,7 @@ from .helloworld import *
 # Create your views here.
 from django.contrib.auth import authenticate, login
 
+
 def login_view(request):
     if request.method == "POST":
         email = request.POST['email']
@@ -16,8 +17,10 @@ def login_view(request):
             return redirect('home_page_name')
         else:
             # 如果验证失败，你可以返回一个错误消息
-            return render(request, 'login.html', {'error': 'Invalid email or password.'})
-            #return HttpResponse(status=401) # Return an 'invalid login' error message.
-    
+            return render(
+                request, 'login.html', {'error': 'Invalid email or password.'}
+            )
+            # return HttpResponse(status=401) # Return an 'invalid login' error message.
+
     else:
         return render(request, 'login.html')
