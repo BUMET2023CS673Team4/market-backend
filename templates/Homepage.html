@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Flea Market</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        #menu {
+            width: 250px;
+            height: 100%;
+            background-color: #333;
+            position: fixed;
+            top: 0;
+            left: -250px;
+            transition: 0.3s;
+            padding-top: 20px;
+            color: white;
+        }
+
+        #menu a {
+            padding: 10px 15px;
+            text-decoration: none;
+            color: white;
+            display: block;
+        }
+
+        #menu a:hover {
+            background-color: #575757;
+        }
+
+        #content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        .menu-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            cursor: pointer;
+        }
+
+        .category-card {
+            width: 150px;
+            height: 150px;
+            background-color: salmon;
+            margin: 10px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+<div class="menu-btn" onclick="toggleMenu()">
+    ☰
+</div>
+
+<div id="menu">
+    <a href="#">Profile</a>
+    <a href="#">Categories</a>
+    <a href="#">Sign out</a>
+</div>
+
+<div id="content">
+    <h1>Home Page</h1>
+    <input type="text" placeholder="Search...">
+    <div class="category-card">Furniture</div>
+    <div class="category-card">Storage</div>
+    <div class="category-card">Electronics</div>
+</div>
+
+<script>
+    function toggleMenu() {
+        const menu = document.getElementById('menu');
+        const position = parseInt(getComputedStyle(menu).left);
+
+        if (position < 0) {
+            menu.style.left = '0px';
+        } else {
+            menu.style.left = '-250px';
+        }
+    }
+</script>
+
+</body>
+</html>

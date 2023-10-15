@@ -88,3 +88,9 @@ class UserControllerTest(TestCase):
                 },
             )
             self.assertEqual(response.status_code, 500)
+
+    def test_login_with_valid_credentials(self):
+        existing_user = User.objects.create(
+            name="John Doe",
+            email="jd@bu.edu",
+            password="1234")

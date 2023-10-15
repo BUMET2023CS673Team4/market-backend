@@ -1,0 +1,15 @@
+:root {
+  --monochromered: rgba(254, 95, 85, 1);
+  --monochromewhite: rgba(255, 255, 255, 1);
+  --monochromeblack: rgba(33, 37, 41, 1);
+  --monochromeblue: rgba(0, 166, 251, 1);
+  --monochromegrey-80: rgba(73, 80, 87, 1);
+  --monochromegrey-60: rgba(173, 181, 189, 1);
+  --monochromegrey-40: rgba(222, 226, 230, 1);
+  --monochromegrey-20: rgba(248, 249, 250, 1);
+  --greenbluedark-grey: rgba(53, 53, 53, 1);
+  --greenbluegreen: rgba(60, 110, 113, 1);
+  --greenbluewhite: rgba(255, 255, 255, 1);
+  --greenbluegrey: rgba(217, 217, 217, 1);
+  --greenblueteal: rgba(40, 75, 99, 1);
+}
