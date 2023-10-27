@@ -41,7 +41,7 @@ jobs:
           pushd frontend
           npm ci
           npm run build --if-present
-          rm ./node_modules # remove for smaller package size
+          rm -rf ./node_modules # remove for smaller package size
           popd
       - name: Building web app
         uses: azure/appservice-build@v2
