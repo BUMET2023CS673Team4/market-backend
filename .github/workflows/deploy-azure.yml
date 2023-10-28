@@ -2,7 +2,7 @@ name: Django CI Release - Azure
 
 on:
   push:
-    branches: [ "main", "tianpei/azuredep_fe_integration" ]
+    branches: [ "main" ]
   workflow_dispatch: null
 
 env:
