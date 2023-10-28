@@ -121,12 +121,13 @@ STATIC_URL = "static/"
 
 STATIC_ROOT = BASE_DIR / "dist"
 
+FRONTEND_BUILD_ROOT = BASE_DIR / "frontend" / "build"
+
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
-    BASE_DIR / "frontend" / "build" / "static",
+    # BASE_DIR / "static",
+    FRONTEND_BUILD_ROOT / "static",
 ]
 
-FRONTEND_BUILD_ROOT = BASE_DIR / "frontend" / "build"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
