@@ -1,0 +1,70 @@
+<mxfile host="app.diagrams.net" modified="2023-10-31T21:56:56.675Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/119.0" etag="AHihlA-iqbKcnAYA8lV-" version="21.2.3" type="device">
+  <diagram name="Page-1" id="usSSPJ65iqqJF1xtR1_O">
+    <mxGraphModel dx="1647" dy="940" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="7oqm0E2yfHf6LR3YEgjA-1" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="200" width="680" height="490" as="geometry" />
+        </mxCell>
+        <mxCell id="7oqm0E2yfHf6LR3YEgjA-2" value="Django runtime" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="90" y="210" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="7oqm0E2yfHf6LR3YEgjA-3" value="&lt;div&gt;Static file handler&lt;/div&gt;&lt;div&gt;by Django&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="260" width="100" height="410" as="geometry" />
+        </mxCell>
+        <mxCell id="7oqm0E2yfHf6LR3YEgjA-4" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="220" y="260" width="530" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="7oqm0E2yfHf6LR3YEgjA-5" value="Controllers" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="220" y="260" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="7oqm0E2yfHf6LR3YEgjA-6" value="&lt;div&gt;User controller class&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="310" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="7oqm0E2yfHf6LR3YEgjA-7" value="Page controller class" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="380" y="310" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="7oqm0E2yfHf6LR3YEgjA-8" value="Checkout controller class" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="310" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="7oqm0E2yfHf6LR3YEgjA-9" value="(Other controllers)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="660" y="310" width="70" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="7oqm0E2yfHf6LR3YEgjA-10" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="220" y="420" width="530" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="7oqm0E2yfHf6LR3YEgjA-11" value="Providers" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="220" y="420" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="7oqm0E2yfHf6LR3YEgjA-13" value="Secret provider class" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="447.5" width="120" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="7oqm0E2yfHf6LR3YEgjA-15" value="(Other providers)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="660" y="447.5" width="70" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="7oqm0E2yfHf6LR3YEgjA-16" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="220" y="520" width="240" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="7oqm0E2yfHf6LR3YEgjA-17" value="Database" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="220" y="520" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="7oqm0E2yfHf6LR3YEgjA-18" value="SQLite instance" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="565" width="200" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="7oqm0E2yfHf6LR3YEgjA-19" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="520" width="270" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="7oqm0E2yfHf6LR3YEgjA-20" value="Configurations" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="480" y="520" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="7oqm0E2yfHf6LR3YEgjA-21" value="API keys" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="500" y="565" width="70" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="7oqm0E2yfHf6LR3YEgjA-22" value="&lt;div&gt;Application runtime&lt;/div&gt;&lt;div&gt;configurations&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="600" y="565" width="130" height="85" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
