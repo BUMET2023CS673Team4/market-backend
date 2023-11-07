@@ -104,3 +104,15 @@ def login(request: HttpRequest) -> HttpResponse:
         # Authentication failed
         logger.error(f"[login] authentication failed for email: {email}")
         return HttpResponse(status=401)  # Unauthorized
+
+# 获取当前用户信息
+def get_user_info(request):
+    if request.user.is_authenticated:
+        response_data = {
+            'username': request.user.username,
+            'email': request.user.email,
+            # 其他字段
+        }
+        return JsonResponse({'status': 'success', 'user': response_data})
+    else:
+        return JsonResponse({'status': 'failed', 'message': 'User not authenticated'})
