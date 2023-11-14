@@ -4,4 +4,6 @@ djangorestframework==3.14.0
 pytest==7.4.2
 pytest-cov==4.1.0
 pytest-django==4.5.2
+stripe==7.0.0
+toml==0.10.2
 whitenoise==6.5.0
