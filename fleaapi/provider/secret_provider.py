@@ -31,7 +31,6 @@ class SecretProvider:
             self.logger.error(
                 f"Secret file {secret_file} not found, set all secrets to None"
             )
-            raise e
         except (TypeError, toml.TomlDecodeError) as e:
             self.logger.error(f"Secret file {secret_file} is not a valid TOML file")
             raise e
