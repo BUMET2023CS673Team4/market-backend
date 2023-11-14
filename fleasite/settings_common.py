@@ -176,4 +176,10 @@ LOGGING = {
 
 # Application settings
 
-FLEA_SECRET_FILE = BASE_DIR / "env" / "flea_secret.toml"
+FLEA_SECRET_FILE = (
+    "/home/flea_secret.toml"
+    if IS_AZURE
+    else "/var/cs673/flea_secret.toml"
+    if IS_AWS
+    else BASE_DIR / "env" / "flea_secret.toml"
+)
