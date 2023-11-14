@@ -13,7 +13,7 @@ def stripe_public_key(request):
     Get the stripe public key.
     This API is required by the stripe process.
     No parameters are required for now.
-    Endpoint: GET /api/stripe_public_key/
+    Endpoint: GET /api/stripe-public-key/
     Get parameters:
         None
     :param request: the request object
@@ -29,7 +29,7 @@ def create_checkout_session(request):
     Create a checkout session and return the client secret to the frontend.
     This API is required by the stripe process.
     No parameters are required for now.
-    Endpoint: POST /api/create_checkout_session/
+    Endpoint: POST /api/create-checkout-session/
     Post Form Data:
         None
     :param request: the request object
@@ -61,7 +61,7 @@ def create_checkout_session(request):
         )
         return JsonResponse({'client_secret': session.client_secret})
     except Exception as e:
-        return JsonResponse({'error': str(e)})
+        return JsonResponse({'error': str(e)}, status=500)
 
 
 @csrf_protect
@@ -70,14 +70,17 @@ def session_status(request):
     """
     Get the status of the checkout session.
     This API is optional to the stripe checkout process.
-    Endpoint: GET /api/session_status/
+    Endpoint: GET /api/session-status/
     Get parameters:
         stripe_sid: The stripe session id.
     :param request: the request object
     :return: the json response with the status of the checkout session
     """
     stripe.api_key = SecretProvider().get_secret('stripe', 'test_secret_key')
-    session = stripe.checkout.Session.retrieve(request.GET['stripe_sid'])
-    return JsonResponse(
-        {'status': session.status, 'customer_email': session.customer_details.email}
-    )
+    try:
+        session = stripe.checkout.Session.retrieve(request.GET['stripe_sid'])
+        return JsonResponse(
+            {'status': session.status, 'customer_email': session.customer_details.email}
+        )
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)

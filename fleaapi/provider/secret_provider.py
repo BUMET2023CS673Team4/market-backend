@@ -4,7 +4,7 @@ import toml
 from django.conf import settings
 
 
-class SecretProvider(object):
+class SecretProvider:
     """
     Singleton class for reading secret toml file. The file path is specified in settings.FLEA_SECRET_FILE.
     Usage example:
@@ -31,6 +31,7 @@ class SecretProvider(object):
             self.logger.error(
                 f"Secret file {secret_file} not found, set all secrets to None"
             )
+            raise e
         except (TypeError, toml.TomlDecodeError) as e:
             self.logger.error(f"Secret file {secret_file} is not a valid TOML file")
             raise e
@@ -39,4 +40,6 @@ class SecretProvider(object):
             raise e
 
     def get_secret(self, category, key, default=None):
-        return self.secret.get(category, default).get(key, default)
+        if category in self.secret:
+            return self.secret.get(category).get(key, default)
+        return default
