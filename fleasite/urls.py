@@ -18,7 +18,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.shortcuts import render
-from django.urls import include, path
+from django.urls import include, path, re_path
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.static import serve
 
@@ -41,3 +41,13 @@ urlpatterns = [
     path("checkout.html", checkout_demo_page),  # for test only
     path("return.html", return_demo_page),  # for test only
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+# Debug React proxy
+if settings.DEBUG:
+    from .frontend import CSRFedDebugReactProxyView
+
+    urlpatterns.extend(
+        [
+            re_path(r'^(?P<path>.*)$', CSRFedDebugReactProxyView),
+        ]
+    )
