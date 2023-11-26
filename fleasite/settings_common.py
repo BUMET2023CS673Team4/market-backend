@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 import os
-
 from pathlib import Path
 
 IS_AZURE = os.environ.get("WEBSITE_HOSTNAME", None) is not None
@@ -121,6 +120,8 @@ USE_TZ = True
 STATIC_URL = "static/"
 
 STATIC_ROOT = BASE_DIR / "dist"
+
+DEBUG = True
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
