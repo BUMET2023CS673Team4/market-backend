@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from .helloworld import *
+# from .helloworld import *
 
 # Create your views here.
 from django.contrib.auth import authenticate, login
