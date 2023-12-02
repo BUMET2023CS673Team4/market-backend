@@ -2,8 +2,23 @@
 This file is a site-level script to reverse-proxy the frontend server. It will only be used in development mode.
 Change the upstream as needed but do not commit the change.
 """
+from django.conf import settings
 from django.views.decorators.csrf import ensure_csrf_cookie
+from django.views.static import serve
 from revproxy.views import ProxyView
+
+
+@ensure_csrf_cookie
+def react(request):
+    return serve(request, "index.html", document_root=settings.FRONTEND_BUILD_ROOT)
+
+
+def root_static(request, path):
+    return serve(request, path, document_root=settings.FRONTEND_BUILD_ROOT)
+
+
+def nonroot_static(request):
+    return serve(request, request.path[1:], document_root=settings.FRONTEND_BUILD_ROOT)
 
 
 class DebugReactProxyView(ProxyView):
