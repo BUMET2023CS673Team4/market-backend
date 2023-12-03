@@ -5,7 +5,7 @@ on:
     branches: [ "main" ]
   workflow_dispatch: null
 
-jobs:          
+jobs:
   build-and-deploy:
     runs-on: [self-hosted, AWS, Prod]
     steps:
