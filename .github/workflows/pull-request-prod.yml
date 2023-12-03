@@ -29,7 +29,8 @@ jobs:
           pip install -r requirements.txt
       - name: Run Tests
         run: |
-          DJANGO_SETTINGS_MODULE=fleasite.settings_release bash runtest.sh --cov-report term --cov-report xml:/tmp/flea_coverage.xml --cov
+          export DJANGO_SETTINGS_MODULE=fleasite.settings_release
+          bash runtest.sh --cov-report term --cov-report xml:/tmp/flea_coverage.xml --cov
       # - name: Get Coverage
       #   uses: orgoro/coverage@v3.1
       #   with:
