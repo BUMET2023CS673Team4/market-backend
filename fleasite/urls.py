@@ -51,3 +51,19 @@ if settings.DEBUG:
             re_path(r'^(?P<path>.*)$', CSRFedDebugReactProxyView),
         ]
     )
+else:
+    from .frontend import nonroot_static, react, root_static
+
+    # Keep this section in sync with frontent/src/App.js
+    urlpatterns.extend(
+        [
+            path("", react),
+            path("signup", react),
+            path("forgotpassword", react),
+            re_path(r'^(?P<path>static/.*)$', root_static),
+            path("favicon.ico", nonroot_static),
+            path("logo192.png", nonroot_static),
+            path("logo512.png", nonroot_static),
+            path("robots.txt", nonroot_static),
+        ]
+    )

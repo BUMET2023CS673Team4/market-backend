@@ -122,8 +122,11 @@ STATIC_URL = "pystatic/"
 
 STATIC_ROOT = BASE_DIR / "dist"
 
+FRONTEND_BUILD_ROOT = BASE_DIR / "frontend" / "build"
+
 STATICFILES_DIRS = [
     BASE_DIR / "static",
+    FRONTEND_BUILD_ROOT / "static",
 ]
 
 # Default primary key field type
