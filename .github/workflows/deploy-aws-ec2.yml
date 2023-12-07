@@ -2,7 +2,7 @@ name: Django CI Release - Aws
 
 on:
   push:
-    branches: [ "main", "tianpei/fix_aws" ]
+    branches: [ "main"]
   workflow_dispatch: null
 
 jobs:
@@ -25,7 +25,7 @@ jobs:
           npm install
           npm install --save-dev @babel/plugin-proposal-private-property-in-object
           # npm run build --if-present
-          CI= npm run build --if-present # bypass eslint
+          CI= npm run build --if-present # workaround to bypass eslint
           rm -rf ./node_modules # remove for smaller package size
           popd
       - name: Push artifact

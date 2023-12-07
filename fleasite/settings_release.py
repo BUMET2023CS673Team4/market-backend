@@ -16,6 +16,9 @@ ALLOWED_HOSTS = [
     else 'localhost',
 ]
 
+if IS_AWS:
+    CSRF_TRUSTED_ORIGINS = ['https://' + 'd3mqxizxz10e0.cloudfront.net']
+
 # Fix for Azure Web service complaining about CSRF
 if IS_AZURE:
     CSRF_TRUSTED_ORIGINS = ['https://' + os.environ['WEBSITE_HOSTNAME']]
