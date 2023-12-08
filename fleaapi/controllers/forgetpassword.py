@@ -18,7 +18,6 @@ def request_password_reset(request):
     return HttpResponse(status=400)
 
 
-
 def reset_password(request):
     if request.method == "POST":
         email = request.POST["email"]
@@ -33,9 +32,3 @@ def reset_password(request):
 
     # If not POST or if there are any other issues:
     return HttpResponse(status=400)
-
-
-
-
-
-  
