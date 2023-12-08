@@ -2,7 +2,7 @@ from django.test import TestCase
 from unittest.mock import MagicMock
 
 
-from ..helloworld import *
+from ..inital_connection import *
 
 
 class HelloWorldTest(TestCase):
