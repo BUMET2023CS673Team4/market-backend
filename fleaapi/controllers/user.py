@@ -50,7 +50,7 @@ def signup(request: HttpRequest) -> HttpResponse:
         user.full_clean()
         user.save()
         logger.info(f"[signup] created user: {user}")
-        return HttpResponse(status=201)  # Created
+        return redirect("/signin")  # send user to signin page on successful signup
     except (ValidationError, IntegrityError) as e:
         logger.error(f"[signup] validate user with email {email} failed: {e}")
         return HttpResponseBadRequest()

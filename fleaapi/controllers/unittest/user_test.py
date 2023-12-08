@@ -21,7 +21,7 @@ class UserControllerTest(TestCase):
                 "password": "1234",
             },
         )
-        self.assertEqual(response.status_code, 201)
+        self.assertRedirects(response, "/signin", fetch_redirect_response=False)
 
     def test_signup_with_missing_fields(self):
         response = self.request.post(self.api_path)
