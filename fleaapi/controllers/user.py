@@ -8,6 +8,7 @@ from django.http import (
     HttpResponseBadRequest,
     HttpResponseServerError,
 )
+from django.shortcuts import redirect
 from django.views.decorators.http import require_POST
 
 from fleaapi.models import User
@@ -92,15 +93,13 @@ def login(request: HttpRequest) -> HttpResponse:
         if user.password != password:
             logger.error(f"[login] password for user {email} is incorrect")
             return HttpResponseBadRequest()
+
+        if user is not None:
+            # Successful login
+            logger.info(f"[login] user {email} logged in successfully")
+            request.session["user_id"] = user.id
+            return redirect("/")  # send user to home page on successful login
+
     except Exception as e:
         logger.error(f"[login] failed to get user with email {email}: {repr(e)}")
         return HttpResponseBadRequest()
-
-    if user is not None:
-        # Successful login
-        logger.info(f"[login] user {email} logged in successfully")
-        return HttpResponse(status=200)  # OK
-    else:
-        # Authentication failed
-        logger.error(f"[login] authentication failed for email: {email}")
-        return HttpResponse(status=401)  # Unauthorized
