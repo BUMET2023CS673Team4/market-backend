@@ -103,3 +103,51 @@ def login(request: HttpRequest) -> HttpResponse:
     except Exception as e:
         logger.error(f"[login] failed to get user with email {email}: {repr(e)}")
         return HttpResponseBadRequest()
+
+
+@require_POST
+def request_password_reset(request: HttpRequest) -> HttpResponse:
+    """
+    Request password reset for a user.
+    Endpoint: POST /api/request-password-reset/
+    Post Form Data:
+        email: the email of the user
+    """
+
+
+    email = request.POST.get("email")
+    if not email:
+        return HttpResponseBadRequest("Email is required.")
+
+    try:
+        user = User.objects.get(email=email)
+        # Logic for sending password reset email goes here
+        # For example, generate a token and send it via email
+        return redirect('reset-password')  # Redirect to reset password page
+    except User.DoesNotExist:
+        return HttpResponse("User with the provided email does not exist.", status=404)
+
+
+@require_POST
+@csrf_exempt
+def reset_password(request: HttpRequest) -> HttpResponse:
+    """
+    Reset the password for a user.
+    Endpoint: POST /api/reset-password/
+    Post Form Data:
+        email: the email of the user
+        new_password: the new password
+    """
+    email = request.POST.get("email")
+    new_password = request.POST.get("new_password")
+
+    if not email or not new_password:
+        return HttpResponseBadRequest("Email and new password are required.")
+
+    try:
+        user = User.objects.get(email=email)
+        user.set_password(new_password)
+        user.save()
+        return HttpResponse("Password successfully changed.", status=200)
+    except User.DoesNotExist:
+        return HttpResponse("User with the provided email does not exist.", status=404)
