@@ -129,7 +129,7 @@ def request_password_reset(request: HttpRequest) -> HttpResponse:
 
 
 @require_POST
-@csrf_exempt
+# @csrf_exempt
 def reset_password(request: HttpRequest) -> HttpResponse:
     """
     Reset the password for a user.
