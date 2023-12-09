@@ -1,5 +1,5 @@
 # product page
-#1 get product by id
+# 1 get product by id
 
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseServerError
 from django.views.decorators.http import require_GET
@@ -14,6 +14,7 @@ from django.forms.models import model_to_dict
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core.serializers import serialize
 
+
 @require_GET
 def get_product_by_id(request):
     logger = logging.getLogger(__name__)
@@ -25,16 +26,19 @@ def get_product_by_id(request):
     try:
         product = Item.objects.get(id=product_id)
         logger.info(f"[get_product_by_id] get product by id: {product_id}")
-        return HttpResponse(json.dumps(model_to_dict(product), cls=DjangoJSONEncoder), content_type="application/json")
+        return HttpResponse(
+            json.dumps(model_to_dict(product), cls=DjangoJSONEncoder),
+            content_type="application/json",
+        )
     except Exception as e:
         logger.error(
             f"[get_product_by_id] get product by id {product_id} failed: {repr(e)}"
         )
         return HttpResponseServerError()
-    
-#2 add item to user's cart
-@require_GET
 
+
+# 2 add item to user's cart
+@require_GET
 def add_item_to_cart(request):
     logger = logging.getLogger(__name__)
     logger.info("[add_item_to_cart] flow started")
@@ -56,4 +60,3 @@ def add_item_to_cart(request):
             f"[add_item_to_cart] add item to cart {product_id} failed: {repr(e)}"
         )
         return HttpResponseServerError()
-    
