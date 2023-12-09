@@ -1,7 +1,7 @@
 from django.urls import path
 
 from . import views
-from .controllers import checkout, user, product,cart
+from .controllers import checkout, user, product, cart
 
 urlpatterns = [
     path("helloworld/", views.helloworld),

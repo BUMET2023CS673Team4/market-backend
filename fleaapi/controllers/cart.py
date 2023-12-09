@@ -10,9 +10,15 @@ import json
 from django.forms.models import model_to_dict
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core.serializers import serialize
-from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseServerError, JsonResponse
+from django.http import (
+    HttpResponse,
+    HttpResponseBadRequest,
+    HttpResponseServerError,
+    JsonResponse,
+)
 import logging
 from fleaapi.models import Cart
+
 
 # return all items in cart
 # return amoount of items in cart
@@ -29,21 +35,23 @@ def show_items_in_cart(request):
         # there could be multiple items in carts
         # get all items in cart
         cart = Cart.objects.filter(user_id=user_id)
-        
+
         items_info = []
         for cart_item in cart:
             item_id = cart_item.item_id  # 假设 Cart 模型中有一个指向 Item 的 ForeignKey 名为 item
             items_info.append(model_to_dict(item_id))
-        # 
+        #
         amount = len(items_info)
         total_price = 0
         for item in items_info:
             total_price += item['price']
 
-
         logger.info(f"[show_items_in_cart] show items in cart: {user_id}")
-        return JsonResponse({"cart": items_info,"amount":amount,"total_price":total_price}, safe=False)
-    
+        return JsonResponse(
+            {"cart": items_info, "amount": amount, "total_price": total_price},
+            safe=False,
+        )
+
     except Exception as e:
         logger.error(
             f"[show_items_in_cart] show items in cart {user_id} failed: {repr(e)}"

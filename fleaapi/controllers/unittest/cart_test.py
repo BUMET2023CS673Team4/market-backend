@@ -7,18 +7,17 @@ from ..user import *
 
 from django.test import TestCase
 from django.urls import reverse
-from fleaapi.models import SellerProfile, User, Item,Cart
+from fleaapi.models import SellerProfile, User, Item, Cart
+
 
 @pytest.mark.django_db
 class CartControllerTest(TestCase):
-
     def setUp(self):
-
         # Create test data for user and item
         self.user = User.objects.create(
             name="John Doe", email="jd@bu.edu", password="1234"
         )
-        
+
         self.sellerProfile1 = SellerProfile.objects.create(
             user=self.user, phone="1234567890"
         )
@@ -28,30 +27,23 @@ class CartControllerTest(TestCase):
             location="Test Location",
             description="This is a description of the test item1",
             seller_id=self.sellerProfile1,  # Assuming seller_id is an instance of User
-            category_id=None,     # Assuming category_id can be null
+            category_id=None,  # Assuming category_id can be null
             price=100.0,
-            image="path/to/image.jpg"
+            image="path/to/image.jpg",
         )
         self.item2 = Item.objects.create(
             name="Test Item 2",
             location="Test Location2",
             description="This is a description of the test item2",
             seller_id=self.sellerProfile1,  # Assuming seller_id is an instance of User
-            category_id=None,     # Assuming category_id can be null
+            category_id=None,  # Assuming category_id can be null
             price=50.0,
-            image="path/to/image.jpg"
+            image="path/to/image.jpg",
         )
 
-        self.cart = Cart.objects.create(
-            user_id=self.user, item_id=self.item1
+        self.cart = Cart.objects.create(user_id=self.user, item_id=self.item1)
+        self.cart = Cart.objects.create(user_id=self.user, item_id=self.item2)
 
-        )
-        self.cart = Cart.objects.create(
-            user_id=self.user, item_id=self.item2
-
-        )
-        
-    
     def test_show_items_in_cart(self):
         # Assume you have a URL path 'show_items_in_cart' to get items in cart
         url = "/api/show-items-in-cart/?user_id=" + str(self.user.id)
@@ -60,11 +52,14 @@ class CartControllerTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()['cart'][0]['name'], self.item1.name)
         self.assertEqual(response.json()['cart'][1]['name'], self.item2.name)
-        self.assertEqual(response.json()['cart'][0]['description'], self.item1.description)
-        self.assertEqual(response.json()['cart'][1]['description'], self.item2.description)
+        self.assertEqual(
+            response.json()['cart'][0]['description'], self.item1.description
+        )
+        self.assertEqual(
+            response.json()['cart'][1]['description'], self.item2.description
+        )
         self.assertEqual(response.json()['cart'][1]['price'], self.item2.price)
-        self.assertEqual(response.json()['amount'],2)
-        self.assertEqual(response.json()['total_price'],150)
+        self.assertEqual(response.json()['amount'], 2)
+        self.assertEqual(response.json()['total_price'], 150)
 
         # More assertions can be added here to check other item information in the response
-        
