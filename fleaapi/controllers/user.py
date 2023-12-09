@@ -9,6 +9,7 @@ from django.http import (
     HttpResponseServerError,
 )
 from django.shortcuts import redirect
+
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
@@ -51,7 +52,7 @@ def signup(request: HttpRequest) -> HttpResponse:
         user.full_clean()
         user.save()
         logger.info(f"[signup] created user: {user}")
-        return HttpResponse(status=201)  # Created
+        return redirect("/signin")  # send user to signin page on successful signup
     except (ValidationError, IntegrityError) as e:
         logger.error(f"[signup] validate user with email {email} failed: {e}")
         return HttpResponseBadRequest()
@@ -94,6 +95,13 @@ def login(request: HttpRequest) -> HttpResponse:
         if user.password != password:
             logger.error(f"[login] password for user {email} is incorrect")
             return HttpResponseBadRequest()
+
+        if user is not None:
+            # Successful login
+            logger.info(f"[login] user {email} logged in successfully")
+            request.session["user_id"] = user.id
+            return redirect("/")  # send user to home page on successful login
+
     except Exception as e:
         logger.error(f"[login] failed to get user with email {email}: {repr(e)}")
         return HttpResponseBadRequest()
@@ -153,5 +161,6 @@ def reset_password(request: HttpRequest) -> HttpResponse:
         return HttpResponse("Password successfully changed.", status=200)
     except User.DoesNotExist:
         return HttpResponse("User with the provided email does not exist.", status=404)
+
 
 

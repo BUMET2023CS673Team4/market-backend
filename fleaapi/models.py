@@ -37,7 +37,7 @@ class Item(models.Model):
         Category, blank=True, max_length=255, on_delete=models.SET_NULL, null=True
     )
     price = models.FloatField()
-    image = models.CharField(max_length=255)
+    image = models.CharField(max_length=255)  # path only, not the image itself
     date_added = models.DateTimeField(auto_now_add=True)
 
 
