@@ -1,9 +1,8 @@
-from django.shortcuts import render, redirect
-
-# from .helloworld import *
-
 # Create your views here.
 from django.contrib.auth import authenticate, login
+from django.shortcuts import redirect, render
+
+from .helloworld import *
 
 
 def login_view(request):
