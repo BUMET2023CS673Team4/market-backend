@@ -14,6 +14,7 @@ class PagesControllerTest(TestCase):
         self.request = Client()
         self.all_categories = "/api/categories/"
         self.homepage = "/api/homepage/"
+        self.category_items = "/api/categories/1/items/"
 
     def test_get_all_categories_empty(self):
         # remove all categories
@@ -135,3 +136,54 @@ class PagesControllerTest(TestCase):
         self.assertEqual(response.json()[2]["id"], 3)
         self.assertEqual(response.json()[2]["name"], "testc3")
         self.assertEqual(response.json()[2]["media_image"], "test7.jpg")
+
+    def test_get_category_items(self):
+        # Setup
+        u = User.objects.create(name="test", password="test")
+        s = SellerProfile.objects.create(user=u)
+        # add 3 categories
+        c1 = Category.objects.create(name="testc")
+        # add 3 items to each category
+        Item.objects.create(
+            name="test",
+            description="test",
+            price=1,
+            category_id=c1,
+            image="test.jpg",
+            seller_id=s,
+        )
+        Item.objects.create(
+            name="test2",
+            description="test2",
+            price=2,
+            category_id=c1,
+            image="test2.jpg",
+            seller_id=s,
+        )
+        Item.objects.create(
+            name="test3",
+            description="test3",
+            price=3,
+            category_id=c1,
+            image="test3.jpg",
+            seller_id=s,
+        )
+        # Act
+        response = self.request.get(self.category_items)
+
+        # Assert
+        self.assertEqual(response.status_code, 200)
+        response_json = response.json()
+        self.assertEqual(len(response_json["items"]), 3)
+        self.assertEqual(response_json["items"][0]["id"], 1)
+        self.assertEqual(response_json["items"][0]["name"], "test")
+        self.assertEqual(response_json["items"][0]["price"], 1)
+        self.assertEqual(response_json["items"][0]["media_image"], "test.jpg")
+        self.assertEqual(response_json["items"][1]["id"], 2)
+        self.assertEqual(response_json["items"][1]["name"], "test2")
+        self.assertEqual(response_json["items"][1]["price"], 2)
+        self.assertEqual(response_json["items"][1]["media_image"], "test2.jpg")
+        self.assertEqual(response_json["items"][2]["id"], 3)
+        self.assertEqual(response_json["items"][2]["name"], "test3")
+        self.assertEqual(response_json["items"][2]["price"], 3)
+        self.assertEqual(response_json["items"][2]["media_image"], "test3.jpg")
