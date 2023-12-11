@@ -36,35 +36,3 @@ def request_password_reset(request):
     )
 
     return HttpResponse(status=200)
-
-
-@require_POST
-def reset_password(request):
-    email = request.POST.get('email')
-    new_password = request.POST.get('new_password')
-    reset_token = request.POST.get(
-        'reset_token'
-    )  # Assuming the token is sent in the request
-
-    # Validate the token and find the user
-    try:
-        user = User.objects.get(email=email)
-        # Here, check if the reset_token matches what's stored for the user
-        # This depends on how you've chosen to store the token
-    except User.DoesNotExist:
-        return HttpResponseNotFound()
-
-    # Check if the token is valid and matches
-    if not is_valid_token(user, reset_token):
-        return HttpResponseBadRequest()
-
-    # Reset the password
-    user.set_password(new_password)
-    user.save()
-
-    return HttpResponse(status=200)
-
-
-def is_valid_token(user, token):
-    # Implement token validation logic here
-    pass
