@@ -56,7 +56,7 @@ def homepage(request):
             {
                 "id": category.id,
                 "name": category.name,
-                "image": item.image,
+                "media_image": item.image,
             }
             for category in top_categories
             for item in items
