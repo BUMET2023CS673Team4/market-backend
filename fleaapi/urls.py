@@ -21,4 +21,5 @@ urlpatterns = [
     path('reset-password/', user.reset_password, name='reset_password'),
     path("categories/", pages.all_categories),
     path("homepage/", pages.homepage),
+    path("categories/<int:category_id>/items/", pages.category_items),
 ]
