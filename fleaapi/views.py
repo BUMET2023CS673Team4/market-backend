@@ -11,28 +11,6 @@ from django.views.decorators.http import require_POST
 from .helloworld import *
 
 
-def login_view(request):
-    if request.method == "POST":
-        email = request.POST['email']
-        password = request.POST['password']
-        user = authenticate(request, username=email, password=password)
-        if user is not None:
-            login(request, user)
-            # 登录成功后，你可以重定向到首页或任何其他页面
-            return redirect('home_page_name')
-        else:
-            # 如果验证失败，你可以返回一个错误消息
-            return render(
-                request, 'login.html', {'error': 'Invalid email or password.'}
-            )
-            # return HttpResponse(status=401) # Return an 'invalid login' error message.
-
-    else:
-        return render(request, 'login.html')
-    
-
-
-
 @require_POST
 def request_password_reset(request):
     email = request.POST.get('email')
@@ -64,7 +42,9 @@ def request_password_reset(request):
 def reset_password(request):
     email = request.POST.get('email')
     new_password = request.POST.get('new_password')
-    reset_token = request.POST.get('reset_token')  # Assuming the token is sent in the request
+    reset_token = request.POST.get(
+        'reset_token'
+    )  # Assuming the token is sent in the request
 
     # Validate the token and find the user
     try:
@@ -84,7 +64,7 @@ def reset_password(request):
 
     return HttpResponse(status=200)
 
+
 def is_valid_token(user, token):
     # Implement token validation logic here
     pass
-

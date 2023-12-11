@@ -11,11 +11,12 @@ def request_password_reset(request):
             # If user exists, redirect to reset password page
             return redirect('reset-password')
         except User.DoesNotExist:
-            return HttpResponse("User with the provided email does not exist.", status=404)
+            return HttpResponse(
+                "User with the provided email does not exist.", status=404
+            )
 
     # If not POST or if there are any other issues:
     return HttpResponse(status=400)
-
 
 
 def reset_password(request):
@@ -28,7 +29,9 @@ def reset_password(request):
             user.save()
             return HttpResponse("Password successfully changed.", status=200)
         except User.DoesNotExist:
-            return HttpResponse("User with the provided email does not exist.", status=404)
+            return HttpResponse(
+                "User with the provided email does not exist.", status=404
+            )
 
     # If not POST or if there are any other issues:
     return HttpResponse(status=400)
