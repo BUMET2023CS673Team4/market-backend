@@ -8,7 +8,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 
 from ..user import *
-from fleaapi.controllers import user
+from fleaapi.models import User
 
 
 @pytest.mark.django_db
@@ -19,6 +19,7 @@ class TestSessionUserId(TestCase):
         self.user = User.objects.create(
             name="John Doe", email="jd@bu.edu", password="123456"
         )
+        self.user.save()
 
     def test_session_user_id(self):
         """
@@ -36,12 +37,12 @@ class TestSessionUserId(TestCase):
         self.assertEqual(response.status_code, 302)
         # check whether the user id is in the session
         user_id = self.client.session.get('user_id')
+
         self.assertIsNotNone(user_id)
         self.assertEqual(user_id, self.user.id)
+        #
         # if yes, return the user name and email
-        response = self.client.post(
-            "/api/session/",
-        )
+        response = self.client.get("/api/session/", {'user_id': user_id})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()['user_name'], 'John Doe')
         self.assertEqual(response.json()['user_email'], "jd@bu.edu")

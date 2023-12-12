@@ -7,9 +7,10 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpRequest, HttpResponseBadRequest
 from django.views.decorators.http import require_POST
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.models import User
+from fleaapi.models import User
 import json
 import logging
+from django.views.decorators.http import require_GET
 
 
 # when successfully login, the user id is in the session
@@ -25,7 +26,6 @@ import logging
 # using login function in user.py to login
 
 
-@require_POST
 def session(request: HttpRequest) -> HttpResponse:
     """
     if login successfully, the user id is in the session
@@ -43,7 +43,7 @@ def session(request: HttpRequest) -> HttpResponse:
 
     # if yes, return the user name and email
     try:
-        user = User.objects.filter(id=user_id)
+        user = User.objects.get(id=user_id)
         if user is None:
             logger.error(f"[session] user with id {user_id} does not exist")
             return HttpResponseBadRequest()
