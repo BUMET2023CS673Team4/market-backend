@@ -1,7 +1,7 @@
 from django.urls import path
 
 from . import views
-from .controllers import cart, checkout, product, user
+from .controllers import cart, checkout, product, user, usercheck
 
 urlpatterns = [
     path("helloworld/", views.helloworld),
@@ -13,6 +13,11 @@ urlpatterns = [
     path("get-product-by-id/", product.get_product_by_id),
     path("add-item-to-cart/", product.add_item_to_cart),
     path("show-items-in-cart/", cart.show_items_in_cart),
-    path('request-password-reset/', views.request_password_reset, name='request_password_reset'),
+    path(
+        'request-password-reset/',
+        views.request_password_reset,
+        name='request_password_reset',
+    ),
     path('reset-password/', user.reset_password, name='reset_password'),
+    path('session/', usercheck.session, name='session'),
 ]
