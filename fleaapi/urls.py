@@ -1,7 +1,7 @@
 from django.urls import path
 
 from . import views
-from .controllers import cart, checkout, product, user, usercheck
+from .controllers import cart, checkout, pages, product, user, usercheck
 
 urlpatterns = [
     path("helloworld/", views.helloworld),
@@ -20,4 +20,7 @@ urlpatterns = [
     ),
     path('reset-password/', user.reset_password, name='reset_password'),
     path('session/', usercheck.session, name='session'),
+    path("categories/", pages.all_categories),
+    path("homepage/", pages.homepage),
+    path("categories/<int:category_id>/items/", pages.category_items),
 ]
