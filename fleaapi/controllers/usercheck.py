@@ -39,7 +39,7 @@ def session(request: HttpRequest) -> HttpResponse:
     print
     if not user_id:
         logger.error(f"[session] user is not logged in")
-        return HttpResponseBadRequest()
+        return HttpResponseBadRequest('user is not logged in')
 
     # if yes, return the user name and email
     try:
