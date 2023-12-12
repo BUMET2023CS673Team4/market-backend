@@ -2,12 +2,11 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 from django.test import Client, TestCase
+from django.urls import reverse
+
+from fleaapi.models import Cart, Item, SellerProfile, User
 
 from ..user import *
-
-from django.test import TestCase
-from django.urls import reverse
-from fleaapi.models import SellerProfile, User, Item, Cart
 
 
 @pytest.mark.django_db
@@ -34,7 +33,7 @@ class ProductControllerTest(TestCase):
 
     def test_get_item_info_by_id(self):
         # Assume you have a URL path 'get_item_info' to get item information
-        url = "/api/get-product-by-id/?product_id=" + str(self.item.id)
+        url = f"/api/products/{str(self.item.id)}/"
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, 200)
