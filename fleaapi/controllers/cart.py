@@ -15,6 +15,16 @@ from fleaapi.models import Cart, Category, Item, SellerProfile, User
 
 @require_GET
 def show_items_in_cart(request: HttpRequest) -> HttpResponse:
+    """
+    Show items in cart, requires user_id in session.
+    Endpoint: GET /api/show-items-in-cart/
+    GET parameters:
+        None
+    Session requirements:
+        user_id: the id of the user (obtained via login)
+    :param request: HttpRequest
+    :return: HttpResponse
+    """
     logger = logging.getLogger(__name__)
     logger.info("[show_items_in_cart] flow started")
     user_id = request.session.get("user_id")
