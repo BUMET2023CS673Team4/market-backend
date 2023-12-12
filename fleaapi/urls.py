@@ -11,7 +11,7 @@ urlpatterns = [
     path("create-checkout-session/", checkout.create_checkout_session),
     path("session-status/", checkout.session_status),
     path("products/<int:product_id>/", product.get_product_by_id),
-    path("add-item-to-cart/", product.add_item_to_cart),
+    path("products/<int:product_id>/add-to-cart/", product.add_item_to_cart),
     path("show-items-in-cart/", cart.show_items_in_cart),
     path(
         'request-password-reset/',

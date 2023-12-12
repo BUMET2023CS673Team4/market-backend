@@ -4,18 +4,21 @@
 import json
 import logging
 
-from django.core.serializers import serialize
 from django.core.serializers.json import DjangoJSONEncoder
-from django.db.models import Q
 from django.forms.models import model_to_dict
-from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseServerError
+from django.http import (
+    HttpRequest,
+    HttpResponse,
+    HttpResponseBadRequest,
+    HttpResponseServerError,
+)
 from django.views.decorators.http import require_GET
 
 from fleaapi.models import Cart, Category, Item, User
 
 
 @require_GET
-def get_product_by_id(request, product_id):
+def get_product_by_id(request: HttpRequest, product_id) -> HttpResponse:
     """
     Get product by id.
 
@@ -24,6 +27,7 @@ def get_product_by_id(request, product_id):
         product_id: the id of the product
     :param request: the request object
     :param product_id: the id of the product
+    :return: HttpResponse
     """
     logger = logging.getLogger(__name__)
     logger.info("[get_product_by_id] flow started")
@@ -44,15 +48,24 @@ def get_product_by_id(request, product_id):
         return HttpResponseServerError()
 
 
-# 2 add item to user's cart
-@require_GET
-def add_item_to_cart(request):
+def add_item_to_cart(request: HttpRequest, product_id) -> HttpResponse:
+    """
+    Add item to cart, requires user_id in session.
+
+    Endpoint: POST /api/products/<int:product_id>/add-to-cart/
+    POST parameters:
+        None
+    Session requirements:
+        user_id: the id of the user (obtained via login)
+    :param request: HttpRequest
+    :param product_id: the id of the product
+    :return: HttpResponse
+    """
     logger = logging.getLogger(__name__)
     logger.info("[add_item_to_cart] flow started")
-    user_id = request.GET.get("user_id")
-    product_id = request.GET.get("product_id")
+    user_id = request.session.get("user_id")
     if not user_id or not product_id:
-        logger.error(f"[add_item_to_cart] missing required fields")
+        logger.error(f"[add_item_to_cart] missing user_id or product_id")
         return HttpResponseBadRequest()
     try:
         user = User.objects.get(id=user_id)
