@@ -65,6 +65,8 @@ else:
             path("signin", react),
             path("signup", react),
             path("forgotpassword", react),
+            re_path(r"^categories/\d+$", react),
+            re_path(r"^products/\d+$", react),
             path("product/electronics", react),
             path("product/textbooks", react),
             path("product/funiture", react),
@@ -76,8 +78,7 @@ else:
             path("checkout", react),
             re_path(r'^(?P<path>static/.*)$', root_static),
             path("favicon.ico", nonroot_static),
-            path("logo192.png", nonroot_static),
-            path("logo512.png", nonroot_static),
             path("robots.txt", nonroot_static),
+            re_path("^\w+\.(jpg|jpeg|png|avif|webp)$", nonroot_static),
         ]
     )
