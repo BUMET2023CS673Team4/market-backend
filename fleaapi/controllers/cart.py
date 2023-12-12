@@ -13,7 +13,6 @@ from django.views.decorators.http import require_GET
 from fleaapi.models import Cart, Category, Item, SellerProfile, User
 
 
-@require_GET
 def show_items_in_cart(request: HttpRequest) -> HttpResponse:
     """
     Show items in cart, requires user_id in session.
@@ -37,9 +36,12 @@ def show_items_in_cart(request: HttpRequest) -> HttpResponse:
         cart = Cart.objects.filter(user_id=user_id)
 
         items_info = []
+        item_id_set = set()
         for cart_item in cart:
             item_id = cart_item.item_id  # 假设 Cart 模型中有一个指向 Item 的 ForeignKey 名为 item
-            items_info.append(model_to_dict(item_id))
+            if item_id not in item_id_set:
+                items_info.append(model_to_dict(item_id))
+                item_id_set.add(item_id)
 
         for i in items_info:
             seller_profile = SellerProfile.objects.get(id=i['seller_id'])

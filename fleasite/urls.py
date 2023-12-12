@@ -35,23 +35,20 @@ def return_demo_page(request):
     return serve(request, "return.html", document_root=settings.STATIC_ROOT)
 
 
-urlpatterns = (
-    [
-        path("admin/", admin.site.urls),
-        path("api/", include("fleaapi.urls")),
-        path("checkout.html", checkout_demo_page),  # for test only
-        path("return.html", return_demo_page),  # for test only
-    ]
-    + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-    + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-)
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    path("api/", include("fleaapi.urls")),
+    path("checkout.html", checkout_demo_page),  # for test only
+    path("return.html", return_demo_page),  # for test only
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 # Debug React proxy
 if settings.DEBUG:
-    from .frontend import CSRFedDebugReactProxyView
+    from .frontend import CSRFedDebugReactProxyView, debug_random_media_view
 
     urlpatterns.extend(
         [
+            re_path(r'^(?P<path>media/.*)$', debug_random_media_view),
             re_path(r'^(?P<path>.*)$', CSRFedDebugReactProxyView),
         ]
     )

@@ -129,7 +129,7 @@ STATICFILES_DIRS = [
     FRONTEND_BUILD_ROOT / "static",
 ]
 
-MEDIA_URL = "media/"
+MEDIA_URL = "not-media/"
 
 MEDIA_ROOT = BASE_DIR / "media"
 

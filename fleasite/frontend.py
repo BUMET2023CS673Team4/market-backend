@@ -2,7 +2,9 @@
 This file is a site-level script to reverse-proxy the frontend server. It will only be used in development mode.
 Change the upstream as needed but do not commit the change.
 """
+import requests
 from django.conf import settings
+from django.http import HttpResponse
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.static import serve
 from revproxy.views import ProxyView
@@ -28,3 +30,8 @@ class DebugReactProxyView(ProxyView):
 @ensure_csrf_cookie
 def CSRFedDebugReactProxyView(request, *args, **kwargs):
     return DebugReactProxyView.as_view()(request, *args, **kwargs)
+
+
+def debug_random_media_view(request, path):
+    response = requests.get("https://picsum.photos/200")
+    return HttpResponse(response.content, content_type="image/jpeg")
