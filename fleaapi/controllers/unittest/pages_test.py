@@ -141,9 +141,7 @@ class PagesControllerTest(TestCase):
         # Setup
         u = User.objects.create(name="test", password="test")
         s = SellerProfile.objects.create(user=u)
-        # add 3 categories
         c1 = Category.objects.create(name="testc")
-        # add 3 items to each category
         Item.objects.create(
             name="test",
             description="test",

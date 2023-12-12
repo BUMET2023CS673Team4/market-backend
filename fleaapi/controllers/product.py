@@ -1,25 +1,32 @@
 # product page
 # 1 get product by id
 
+import json
+import logging
+
+from django.core.serializers import serialize
+from django.core.serializers.json import DjangoJSONEncoder
+from django.db.models import Q
+from django.forms.models import model_to_dict
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseServerError
 from django.views.decorators.http import require_GET
-from django.db.models import Q
-import logging
-from fleaapi.models import Item, Category
-from fleaapi.models import User
-from fleaapi.models import Cart
-from fleaapi.models import User
-import json
-from django.forms.models import model_to_dict
-from django.core.serializers.json import DjangoJSONEncoder
-from django.core.serializers import serialize
+
+from fleaapi.models import Cart, Category, Item, User
 
 
 @require_GET
-def get_product_by_id(request):
+def get_product_by_id(request, product_id):
+    """
+    Get product by id.
+
+    Endpoint: GET /api/products/<int:product_id>/
+    GET Parameters:
+        product_id: the id of the product
+    :param request: the request object
+    :param product_id: the id of the product
+    """
     logger = logging.getLogger(__name__)
     logger.info("[get_product_by_id] flow started")
-    product_id = request.GET.get("product_id")
     if not product_id:
         logger.error(f"[get_product_by_id] missing required fields")
         return HttpResponseBadRequest()
