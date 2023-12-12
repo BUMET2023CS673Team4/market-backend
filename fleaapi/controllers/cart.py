@@ -1,35 +1,25 @@
-from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseServerError
-from django.views.decorators.http import require_GET
-from django.db.models import Q
 import logging
-from fleaapi.models import Item, Category
-from fleaapi.models import User
-from fleaapi.models import Cart
-from fleaapi.models import User
-import json
+
 from django.forms.models import model_to_dict
-from django.core.serializers.json import DjangoJSONEncoder
-from django.core.serializers import serialize
 from django.http import (
+    HttpRequest,
     HttpResponse,
     HttpResponseBadRequest,
     HttpResponseServerError,
     JsonResponse,
 )
-import logging
-from fleaapi.models import Cart
+from django.views.decorators.http import require_GET
+
+from fleaapi.models import Cart, Category, Item, SellerProfile, User
 
 
-# return all items in cart
-# return amoount of items in cart
-# return total price of items in cart
 @require_GET
-def show_items_in_cart(request):
+def show_items_in_cart(request: HttpRequest) -> HttpResponse:
     logger = logging.getLogger(__name__)
     logger.info("[show_items_in_cart] flow started")
-    user_id = request.GET.get("user_id")
+    user_id = request.session.get("user_id")
     if not user_id:
-        logger.error(f"[show_items_in_cart] missing required fields")
+        logger.error(f"[show_items_in_cart] user not logged in")
         return HttpResponseBadRequest()
     try:
         # there could be multiple items in carts
@@ -40,7 +30,12 @@ def show_items_in_cart(request):
         for cart_item in cart:
             item_id = cart_item.item_id  # 假设 Cart 模型中有一个指向 Item 的 ForeignKey 名为 item
             items_info.append(model_to_dict(item_id))
-        #
+
+        for i in items_info:
+            seller_profile = SellerProfile.objects.get(id=i['seller_id'])
+            seller_user_name = seller_profile.user.name
+            i['seller_user_name'] = seller_user_name
+
         amount = len(items_info)
         total_price = 0
         for item in items_info:
