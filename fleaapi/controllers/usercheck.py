@@ -46,7 +46,7 @@ def session(request: HttpRequest) -> HttpResponse:
         user = User.objects.get(id=user_id)
         if user is None:
             logger.error(f"[session] user with id {user_id} does not exist")
-            return HttpResponseBadRequest()
+            return HttpResponseBadRequest('user does not exist')
 
         if user is not None:
             # Successful login

@@ -55,6 +55,25 @@ class TestSessionUserId(TestCase):
         self.assertIsNone(user_id)
         # if no, return error to frontend
         response = self.client.get("/api/session/")
+        self.assertEqual(user_id, None)
         self.assertEqual(response.status_code, 400)
+        # return HttpResponseBadRequest('user is not logged in')
+        self.assertEqual(response.content, b'user is not logged in')
+
+    def test_session_user_id3(self):
+        # if the user id is not in the database, return error to frontend
+        # login and get session
+        response = self.client.post(
+            "/api/login/",
+            {"email": "Jj@bu.edu", 'password': '123456'},
+        )
+        self.assertEqual(response.status_code, 400)
+        # check whether the user id is in the session
+        user_id = self.client.session.get('user_id')
+        self.assertIsNone(user_id)
+        # if no, return error to frontend
+        response = self.client.get("/api/session/")
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(user_id, None)
         # return HttpResponseBadRequest('user is not logged in')
         self.assertEqual(response.content, b'user is not logged in')
