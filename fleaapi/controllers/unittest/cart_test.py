@@ -6,8 +6,6 @@ from django.test import Client, TestCase
 
 from fleaapi.models import Cart, Item, SellerProfile, User
 
-from ..user import *
-
 
 @pytest.mark.django_db
 class CartControllerTest(TestCase):
